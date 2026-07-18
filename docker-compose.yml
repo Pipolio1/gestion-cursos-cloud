@@ -1,0 +1,51 @@
+services:
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    networks:
+      - gestion-cursos-network
+    healthcheck:
+      test: rabbitmq-diagnostics -q ping
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  gestion-cursos-cloud:
+    build: .
+    container_name: gestion-cursos-cloud
+    ports:
+      - "8080:8080"
+    environment:
+      - SERVER_PORT=8080
+      - RABBITMQ_HOST=rabbitmq
+      - RABBITMQ_PORT=5672
+      - RABBITMQ_USER=guest
+      - RABBITMQ_PASSWORD=guest
+      - ORACLE_HOST=${ORACLE_HOST}
+      - ORACLE_PORT=${ORACLE_PORT}
+      - ORACLE_DB=${ORACLE_DB}
+      - ORACLE_USER=${ORACLE_USER}
+      - ORACLE_PASSWORD=${ORACLE_PASSWORD}
+      - JPA_DDL_AUTO=${JPA_DDL_AUTO:-update}
+      - AWS_S3_BUCKET=${AWS_S3_BUCKET}
+      - AWS_REGION=${AWS_REGION}
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - AZURE_B2C_ISSUER_URI=${AZURE_B2C_ISSUER_URI}
+      - AZURE_B2C_JWK_SET_URI=${AZURE_B2C_JWK_SET_URI}
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+    networks:
+      - gestion-cursos-network
+    restart: unless-stopped
+
+networks:
+  gestion-cursos-network:
+    driver: bridge
