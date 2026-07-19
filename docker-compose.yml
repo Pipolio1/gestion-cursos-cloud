@@ -32,8 +32,8 @@ services:
       - RABBITMQ_PASSWORD=guest
       - ORACLE_TNS_NAME=inscripcionescursoss7_high
       - ORACLE_TNS_ADMIN=/app/wallet
-      - ORACLE_USER=ADMIN
-      - ORACLE_PASSWORD=hola1234
+      - ORACLE_USER=ADMIN2
+      - ORACLE_PASSWORD=GestionCursos2024!
       - JPA_DDL_AUTO=update
       - JAVA_OPTS=-Xms128m -Xmx512m -XX:MaxRAMPercentage=70.0 -Djava.security.egd=file:/dev/./urandom
       - AWS_S3_BUCKET=${AWS_S3_BUCKET}
