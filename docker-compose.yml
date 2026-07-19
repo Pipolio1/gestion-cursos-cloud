@@ -52,6 +52,29 @@ services:
     pull_policy: always
     restart: unless-stopped
 
+  kong:
+    image: kong:3.7
+    container_name: kong
+    ports:
+      - "8000:8000"
+      - "8001:8001"
+    environment:
+      - KONG_DATABASE=off
+      - KONG_DECLARATIVE_CONFIG=/kong/declarative/kong.yml
+      - KONG_PROXY_ACCESS_LOG=/dev/stdout
+      - KONG_ADMIN_ACCESS_LOG=/dev/stdout
+      - KONG_PROXY_ERROR_LOG=/dev/stderr
+      - KONG_ADMIN_ERROR_LOG=/dev/stderr
+      - KONG_PLUGINS=bundled
+    volumes:
+      - ./kong.yml:/kong/declarative/kong.yml:ro
+    depends_on:
+      - gestion-cursos-cloud
+    networks:
+      - gestion-cursos-network
+    mem_limit: 512m
+    restart: unless-stopped
+
 networks:
   gestion-cursos-network:
     driver: bridge
