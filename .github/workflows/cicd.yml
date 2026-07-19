@@ -71,20 +71,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Verify Oracle wallet exists on EC2
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.AWS_EC2_HOST }}
-          username: ${{ secrets.AWS_EC2_USERNAME }}
-          key: ${{ secrets.AWS_EC2_KEY }}
-          script: |
-            if [ ! -f /opt/wallet/tnsnames.ora ]; then
-              echo "ERROR: Oracle wallet not found at /opt/wallet"
-              echo "Please copy the wallet folder to /opt/wallet on the EC2 instance before deploying."
-              exit 1
-            fi
-            echo "Oracle wallet verified at /opt/wallet"
-
       - name: Deploy to EC2
         uses: appleboy/ssh-action@v1.0.3
         with:

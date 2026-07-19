@@ -38,8 +38,6 @@ services:
       - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
       - AZURE_B2C_ISSUER_URI=${AZURE_B2C_ISSUER_URI}
       - AZURE_B2C_JWK_SET_URI=${AZURE_B2C_JWK_SET_URI}
-    volumes:
-      - /opt/wallet:/app/wallet:ro
     depends_on:
       rabbitmq:
         condition: service_healthy
