@@ -17,7 +17,7 @@ services:
       retries: 5
 
   gestion-cursos-cloud:
-    build: .
+    image: pipolio/gestion-cursos-cloud:latest
     container_name: gestion-cursos-cloud
     ports:
       - "8080:8080"

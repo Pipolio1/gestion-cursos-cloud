@@ -79,6 +79,7 @@ jobs:
           key: ${{ secrets.AWS_EC2_KEY }}
           script: |
             cd /opt/gestion-cursos-cloud
+            curl -fsSL -o docker-compose.yml https://raw.githubusercontent.com/Pipolio1/gestion-cursos-cloud/main/docker-compose.yml
             docker pull ${{ secrets.DOCKERHUB_USERNAME }}/gestion-cursos-cloud:latest
             docker-compose down
             docker-compose up -d
