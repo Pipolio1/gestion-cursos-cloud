@@ -2,9 +2,9 @@ spring:
   application:
     name: gestion-cursos-cloud
   datasource:
-    url: jdbc:oracle:thin:@${ORACLE_HOST:localhost}:${ORACLE_PORT:1521}/${ORACLE_DB:XE}
-    username: ${ORACLE_USER:system}
-    password: ${ORACLE_PASSWORD:oracle}
+    url: jdbc:oracle:thin:@${ORACLE_TNS_NAME:inscripcionescursoss7_high}?TNS_ADMIN=${ORACLE_TNS_ADMIN:/app/wallet}
+    username: ${ORACLE_USER:ADMIN}
+    password: ${ORACLE_PASSWORD:}
     driver-class-name: oracle.jdbc.OracleDriver
   jpa:
     hibernate:
